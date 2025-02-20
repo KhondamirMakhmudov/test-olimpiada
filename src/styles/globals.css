@@ -67,3 +67,7 @@ body {
 .custom-checkbox input:checked + .checkmark::after {
   display: block;
 }
+
+.cursor-custom {
+  cursor: url("/images/close-red.png") 9 9, auto;
+}

@@ -13,7 +13,7 @@ const Index = () => {
 
       <main className=" ">
         <section
-          className=" bg-center bg-cover bg-no-repeat bg-[#FFF3E4]"
+          className=" bg-center bg-cover bg-no-repeat bg-[#FFF3E4] py-[50px]"
           // style={{ backgroundImage: `url(/images/about-us-bg.png)` }}
         >
           <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center px-4 md:px-6 lg:px-10">
@@ -40,11 +40,11 @@ const Index = () => {
             {/* Image */}
             <div className="flex justify-center md:justify-end">
               <Image
-                src={"/images/main-img-about-us.png"}
+                src={"/images/main-img-about.png"}
                 alt="about-us-img"
-                width={544}
-                height={314}
-                className="max-w-full h-auto"
+                width={580}
+                height={347}
+                className="max-w-full h-auto bg-white p-3 border shadow-md"
               />
             </div>
           </div>
@@ -101,11 +101,11 @@ const Index = () => {
 
             <div className="flex justify-center md:justify-end">
               <Image
-                src="/images/about-us-img1.png"
+                src="/images/about-us-img1.jpg"
                 alt="about-us-img"
-                width={611}
-                height={382}
-                className="max-w-full h-auto"
+                width={580}
+                height={347}
+                className="max-w-full h-auto p-3 bg-white border shadow-md"
               />
             </div>
           </div>
@@ -116,11 +116,11 @@ const Index = () => {
           <div className="container grid grid-cols-1 md:grid-cols-2 items-center gap-6 px-4 md:px-6">
             <div className="flex justify-center md:justify-start">
               <Image
-                src="/images/about-us-img2.png"
+                src="/images/about-us-img2.jpg"
                 alt="about-us-img"
-                width={508}
-                height={414}
-                className="max-w-full h-auto"
+                width={580}
+                height={347}
+                className="max-w-full h-auto p-3 bg-white border shadow-md"
               />
             </div>
 

@@ -6,6 +6,7 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { get, isNil } from "lodash";
+import { useTheme } from "next-themes";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -14,6 +15,7 @@ import { useTranslation } from "react-i18next";
 
 const PieChartComponent = () => {
   const { t, i18n } = useTranslation();
+  const { theme } = useTheme();
   const { data: session } = useSession();
   const {
     data: quizResult,
@@ -98,8 +100,9 @@ const PieChartComponent = () => {
       dataLabels: {
         enabled: false,
         style: {
-          fontSize: "14px",
+          fontSize: "22px",
           fontWeight: "bold",
+          colors: theme === "dark" ? ["#ffffff"] : ["#000000"],
         },
         formatter: (val) => `${val.toFixed(1)}%`, // Shows percentage
       },
@@ -107,6 +110,9 @@ const PieChartComponent = () => {
         show: true,
         position: "top",
         fontSize: "14px",
+        labels: {
+          colors: theme === "dark" ? "#ffffff" : "#000000", // Dynamic legend label colors
+        },
       },
       tooltip: {
         enabled: true,

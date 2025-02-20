@@ -9,12 +9,13 @@
   "homePage": "Bosh sahifa",
   "reminder": "Eslatma",
   "logout": "Chiqish",
-  "first_reminder": "Olimpiada ikki bosqichda o'tkaziladi. Birinchi bosqich onlayn shaklda topshiriladi.",
+  "first_reminder": "Olimpiada ikki bosqichda o'tkaziladi.",
   "second_reminder": "Unda test savollariga to'g'ri javob berib eng yuqori ball to'plagan 500 nafar qatnashchilar ikkinchi bosqichga yo'llanmani qo'lga kiritadilar.",
-  "third_reminder": "Olimpiada davomiyligi – 1 soat.",
-  "fourth_reminder": "Birinchi bosqich: 'iqmath.uz' saytida test shaklida o'tkaziladi, savollar soni jami 30 tani tashkil etadi. Unda: birinchi o'ntaligi 2.1 balldan, ikkinchi o'ntaligi 3.1 balldan va so'nggi o'ntaligi 5.1 balldan, jami maksimal to’plashingiz mumkin bo‘lgan ball 103 ballni tashkil etadi. Testlar ishlanishiga jami bir soat beriladi. Belgilangan vaqt tugagach tizim avtomatik tarzda testni to'xtatadi va javob berilgan savollargagina ballar hisoblanadi, javobsiz qolgan savollarga '0' ball baholanadi. Natijalaringizni test so'ngida ko'rishingiz mumkin bo'ladi.",
-  "fifth_reminder": "Ikkinchi bosqich haqida va boshqa qiziqtirgan savollaringizga bu havola orqali 'https://iq-math.uz/about-olympics' javob olishingiz mumkin.",
-  "sixth_reminder": "O'zingiz haqingizda saytga kiritgan ma'lumotlaringiz passport(ID) yoki tug'ilganlik haqidagi guvohnomangiz ma'lumotlari bilan to'g'ri kelishi kerak, aks holda testdan chetlashtirilasiz va ikkinchi bosqichga qo'yilmaysiz!",
+  "third_reminder": "Veb-saytdan ro‘yxatdan o‘tish davomida shaxsiy ma’lumotlaringiz pasport(ID) yoki tugʻilganlik haqidagi guvohnomangiz maʼlumotlari bilan toʻgʻri kelishi kerak, aks holda testdan chetlashtirilasiz va ikkinchi bosqichga qoʻyilmaysiz!",
+  "fourth_reminder": "Unda test 30 ta test savollari va 60 daqiqa vaqt beriladi. Belgilangan vaqt tugagach tizim avtomatik tarzda testni toʻxtatadi va javob berilgan savollargagina ballar hisoblanadi, javobsiz qolgan savollarga “0” ball baholanadi. Natijalaringizni test soʻngida koʻrishingiz mumkin boʻladi.",
+  "fifth_reminder": "Test savollarining birinchi oʻntaligi 2.1 balldan, ikkinchi oʻntaligi 3.1 balldan va soʻnggi oʻntaligi 5.1 balldan, jami maksimal toʻplashingiz mumkin boʻlgan ball 103 ballni tashkil etadi",
+  "sixth_reminder": "Test savollariga toʻgʻri javob berib eng yuqori ball toʻplagan 500 nafar ishtirokchilar ikkinchi bosqichga yoʻllanmani qoʻlga kiritadilar. ",
+  "seventh_reminder": "Ikkinchi bosqich haqida va boshqa qiziqtirgan savollaringizga https://iqmath.uz/info/about-olympic havolasi orqali to‘liq ma’lumot olishingiz mumkin. ",
   "leadTime": "Bajarish vaqti",
   "startDate": "Boshlanish sanasi",
   "endDate": "Tugash sanasi",
@@ -60,6 +61,7 @@
   "district": "Tuman/Shahar",
   "settings": "Sozlamalar",
   "exitWeb": "Web sahifadan chiqish",
+
   "confidentiality": "Maxfiylik",
   "exitWebDesc": "Haqiqatan ham sahifani tark etmoqchimisiz?",
   "wantToChangePassword": "Agarda biz taqdim etgan parol sizga noqulaylik tug'dirayotgan bo'lsa, uni o'zgartirishingiz mumkin.",
@@ -144,5 +146,7 @@
   "LangOfEducation": "Ta'lim tili",
   "courses": "Kurslar",
   "schoolNumber": "Maktabingiz raqamini kiriting",
-  "litseyName": "Ro'yxatdan litsey nomini tanlang"
+  "litseyName": "Ro'yxatdan litsey nomini tanlang",
+  "cancel": "Bekor qilish",
+  "contract": "Foydalanuvchi shartnomasi va maxfiylik siyosati"
 }

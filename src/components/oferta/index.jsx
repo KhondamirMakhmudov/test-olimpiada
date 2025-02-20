@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 export default function UserAgreement() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isChecked, setIsChecked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isScrolledToEnd, setIsScrolledToEnd] = useState(false);
@@ -50,18 +50,25 @@ export default function UserAgreement() {
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center w-full justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg max-w-2xl shadow-lg w-[1200px]">
-            <h2 className="text-lg font-semibold mb-4">
-              Foydalanuvchi Shartnomasi va Maxfiylik Siyosati
-            </h2>
+            <h2 className="text-lg font-semibold mb-4">{t("contract")}</h2>
 
             {/* Scrollable PDF */}
             <div className="h-[500px] overflow-y-auto border relative">
-              <iframe
-                ref={iframeRef}
-                src="/files/oferta.pdf#toolbar=0&navpanes=0&scrollbar=0"
-                type="application/pdf"
-                className="w-full h-full"
-              />
+              {i18n.language === "uz" ? (
+                <iframe
+                  ref={iframeRef}
+                  src="/files/oferta_uz.pdf#toolbar=0&navpanes=0&scrollbar=0"
+                  type="application/pdf"
+                  className="w-full h-full"
+                />
+              ) : (
+                <iframe
+                  ref={iframeRef}
+                  src="/files/oferta_ru.pdf#toolbar=0&navpanes=0&scrollbar=0"
+                  type="application/pdf"
+                  className="w-full h-full"
+                />
+              )}
             </div>
 
             {/* Buttons */}
@@ -70,13 +77,13 @@ export default function UserAgreement() {
                 onClick={() => setIsModalOpen(false)}
                 className="px-4 py-2 bg-gray-300 rounded"
               >
-                Bekor qilish
+                {t("cancel")}
               </button>
               <button
                 onClick={handleAgree}
                 className={`px-4 py-2 bg-blue-500 text-white rounded `}
               >
-                Tasdiqlash
+                {t("submit")}
               </button>
             </div>
           </div>

@@ -7,14 +7,32 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 const Index = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   return (
-    <>
+    <div className="h-screen">
       <Header />
-      <main>
+
+      {i18n.language === "uz" ? (
+        <div className="h-full  mx-auto">
+          <iframe
+            src="/files/nizom_uz.pdf#toolbar=0&navpanes=0&scrollbar=0"
+            type="application/pdf"
+            className="w-full h-full bg-white"
+          />
+        </div>
+      ) : (
+        <div className="h-full  mx-auto">
+          <iframe
+            src="/files/nizom_rus.pdf#toolbar=0&navpanes=0&scrollbar=0"
+            type="application/pdf"
+            className="w-full h-full bg-white"
+          />
+        </div>
+      )}
+      {/* <main>
         <section>
           <div className="container mt-[50px] ">
-            <NavbarTitle>{t("olympicsTitle")}</NavbarTitle>{" "}
+            <NavbarTitle>{t("olympicsTitle")}</NavbarTitle>
             <p className=" lg:text-base text-sm  my-[50px]">
               {t("aboutOlympicsContent1")}
               <strong>{t("aboutOlympicsContent2")}</strong>
@@ -40,7 +58,7 @@ const Index = () => {
                 className="shadow-xl rounded-md flex items-start gap-x-3 p-4 pb-0 pl-0"
               >
                 <div
-                  className="p-2 w-6 h-full rounded-tl-md rounded-bl-md text-white flex items-center justify-center "
+                  className="p-2 w-6 h-full rounded-tl-md rounded-bl-md text-white flex items-center justify-center"
                   style={{ backgroundColor: color }}
                 ></div>
                 <p className="text-sm py-[10px]">{t(content)}</p>
@@ -49,7 +67,7 @@ const Index = () => {
           </div>
         </section>
 
-        <section className="">
+        <section>
           <div className="container">
             <TitleLittleContent>{t("aboutOlympicsTitle1")}</TitleLittleContent>
 
@@ -120,9 +138,7 @@ const Index = () => {
             </motion.p>
           </div>
 
-          {/* Image & List Section */}
           <div className="container grid grid-cols-1 md:grid-cols-2 gap-[30px] items-center mt-8">
-            {/* Image moves to top on smaller screens */}
             <div className="flex justify-center">
               <Image
                 src="/images/olimpiada-banner.jpg"
@@ -133,7 +149,6 @@ const Index = () => {
               />
             </div>
 
-            {/* Winner List */}
             <div>
               <ul className="space-y-4">
                 {[1, 2, 3].map((num) => (
@@ -162,8 +177,8 @@ const Index = () => {
             </div>
           </div>
         </section>
-      </main>
-    </>
+      </main> */}
+    </div>
   );
 };
 

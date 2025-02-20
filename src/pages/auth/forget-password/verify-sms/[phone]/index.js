@@ -76,7 +76,7 @@ const Index = () => {
     const formattedPhone = `998${phone.replace(/[^0-9]/g, "")}`;
     resendSMSCodeForget(
       {
-        url: URLS.recieveCode,
+        url: URLS.resendSMSCodeForget,
         attributes: {
           phone: parseInt(`998${phone.replace(/[^0-9]/g, "")}`),
           sms_code: code.join(""),
@@ -99,9 +99,15 @@ const Index = () => {
   };
 
   const handleKeyDown = (e, index) => {
-    if (e.key === "Backspace" && code[index] === "") {
-      // Focus the previous input
-      if (index > 0) {
+    if (e.key === "Backspace") {
+      const newCode = [...code];
+
+      if (code[index] !== "") {
+        // Remove the digit from the current input
+        newCode[index] = "";
+        setCode(newCode);
+      } else if (index > 0) {
+        // Move focus to the previous input
         document.getElementById(`input-${index - 1}`).focus();
       }
     }
@@ -117,7 +123,7 @@ const Index = () => {
 
   return (
     <div
-      className="min-h-screen bg-center bg-cover bg-no-repeat flex flex-col px-4 sm:px-6"
+      className="min-h-screen bg-center bg-cover bg-no-repeat flex flex-col "
       style={{ backgroundImage: `url(/images/main-bg.jpg)` }}
     >
       <Header />

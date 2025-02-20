@@ -48,7 +48,7 @@ const Index = () => {
   };
   return (
     <div
-      className="min-h-screen bg-center bg-cover px-4 sm:px-6 flex flex-col"
+      className="min-h-screen bg-center bg-cover flex flex-col"
       style={{ backgroundImage: `url(/images/main-bg.jpg)` }}
     >
       <Header />

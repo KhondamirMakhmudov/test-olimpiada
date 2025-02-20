@@ -13,7 +13,9 @@ import AnswerIcon from "@/components/icons/answer";
 import { useTranslation } from "react-i18next";
 import { useSession } from "next-auth/react";
 import { UserProfileContext } from "@/context/responseProvider";
+import { useTheme } from "next-themes";
 const Index = () => {
+  const { theme } = useTheme();
   const { data: session } = useSession();
   const { t } = useTranslation();
   const [tab, setTab] = useState("results");
@@ -56,7 +58,7 @@ const Index = () => {
           </p>
 
           <div className="flex gap-x-[12px] items-center">
-            <Link href={"/"} className="text-[#5A6A85BF]">
+            <Link href={"/"} className="text-[#5A6A85BF] dark:text-gray-300">
               {t("homePage")}
             </Link>
             <div className="bg-black w-[6px] h-[6px] rounded-full  dark:bg-white"></div>
@@ -75,55 +77,14 @@ const Index = () => {
         </div>
       </div>
 
-      {/* <div className="border border-[#EAEFF4] rounded-md dark:border-[#2A3447FF]">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-[#EAEFF4] dark:border-[#2A3447FF]">
-              <th className="text-left p-[15px] dark:text-white text-black">
-                Fan Nomi
-              </th>
-              <th className="text-left p-[15px] dark:text-white text-black">
-                Test natijasi
-              </th>
-              <th className="text-left p-[15px] dark:text-white text-black">
-                Umumiy savollar
-              </th>
-
-              <th className="text-left p-[15px] dark:text-white text-black">
-                2.1
-              </th>
-              <th className="text-left p-[15px] dark:text-white text-black">
-                3.1
-              </th>
-              <th className="text-left p-[15px] dark:text-white text-black">
-                5.1
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border-b border-[#EAEFF4] dark:border-[#2A3447FF]">
-              <td className="text-left p-[15px] dark:text-white text-black">
-                {get(quizResult, "data.science_name", "")}
-              </td>
-              <td className="text-left p-[15px] dark:text-white text-black">
-                {+get(quizResult, "data.score", "")}
-              </td>
-              <td className="text-left p-[15px] dark:text-white text-black">
-                {get(quizResult, "data.total_questions", "")} ta
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div> */}
-
       <div className="shadow-lg p-[16px] rounded-md">
-        <div className="flex">
+        <div className="flex gap-x-[10px]">
           <button
             onClick={() => handleTab("results")}
-            className={`flex gap-x-[8px] py-[8px] px-[16px] rounded-md transform duration-200 ${
+            className={`flex gap-x-[8px] items-center py-[8px] px-[16px] rounded-md transform duration-200 ${
               tab === "results"
                 ? "bg-[#5D87FFFF] text-white"
-                : "bg-white text-black dark:bg-transparent dark:text-white"
+                : "bg-white text-black "
             }`}
           >
             <GridIcon color={tab === "results" ? "white " : "black"} />
@@ -133,7 +94,7 @@ const Index = () => {
 
           <button
             onClick={() => handleTab("my-answers")}
-            className={`flex gap-x-[8px] py-[8px] px-[16px] rounded-md transform duration-200 ${
+            className={`flex items-center gap-x-[8px] py-[8px] px-[16px] rounded-md transform duration-200 ${
               tab === "my-answers"
                 ? "bg-[#5D87FFFF] text-white"
                 : "bg-white text-black"
@@ -153,7 +114,9 @@ const Index = () => {
               <div className="w-[3px] h-[50px] bg-orange-400"></div>
 
               <div>
-                <p className="text-sm text-[#5A6A85]">{t("totalScore")}</p>
+                <p className="text-sm text-[#5A6A85] dark:text-gray-300">
+                  {t("totalScore")}
+                </p>
 
                 {isNil(get(quizResult, "data.score")) ? (
                   <div className="bg-[#539BFF] flex items-center gap-x-[4px] text-white py-1 px-2 rounded-md mt-[10px]">

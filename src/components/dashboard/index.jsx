@@ -4,20 +4,36 @@ import { useState, useEffect } from "react";
 import { ThemeProvider } from "next-themes";
 import Sidebar from "./sidebar";
 import MainContent from "./main";
+import { useRouter } from "next/router";
 
 const Dashboard = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const router = useRouter();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(null); // Boshlang‘ich holat yo‘q
+
+  useEffect(() => {
+    setIsSidebarOpen(window.innerWidth > 1024); // Sahifa yuklanganda aniqlash
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSidebarOpen(window.innerWidth > 1024); // Open on mobile, closed on desktop
+      if (window.innerWidth > 1024) {
+        setIsSidebarOpen(true);
+      } else {
+        setIsSidebarOpen(false);
+      }
     };
 
-    handleResize(); // Set initial state based on current screen size
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    if (window.innerWidth < 1024) {
+      setIsSidebarOpen(false); // Faqat mobil ekranlarda yopilsin
+    }
+  }, [router.pathname]);
+
+  if (isSidebarOpen === null) return null;
 
   return (
     <ThemeProvider defaultTheme="light" attribute="class">

@@ -11,4 +11,5 @@ export const URLS = {
   forgetPassword: "/student/forgot-password/",
   newPassword: "/student/reset-password/",
   registerDate: "/student/register_date/",
+  resendSMSCodeForget: "student/verify-sms-code/",
 };

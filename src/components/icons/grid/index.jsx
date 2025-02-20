@@ -1,4 +1,4 @@
-const GridIcon = ({ props, color = "#5D87FF" }) => {
+const GridIcon = ({ props, color = "white" }) => {
   return (
     <svg
       width="24"

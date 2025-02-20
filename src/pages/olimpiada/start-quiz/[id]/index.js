@@ -298,7 +298,10 @@ const Index = () => {
               </p>
 
               <div className="flex gap-x-[12px] items-center">
-                <Link href={"/"} className="text-[#5A6A85BF]">
+                <Link
+                  href={"/"}
+                  className="text-[#5A6A85BF] dark:text-gray-200"
+                >
                   {t("homePage")}
                 </Link>
                 <div className="bg-black w-[6px] h-[6px] rounded-full  dark:bg-white"></div>
@@ -356,7 +359,7 @@ const Index = () => {
                           {currentQuizIndex + 1} - {t("question")} :
                         </p>
                         {i18n.language === "uz" ? (
-                          <div className="!text-lg sm:!text-base font-semibold mt-[20px] dark:text-white text-black">
+                          <div className="!text-lg sm:!text-base font-semibold mt-[20px] dark:text-white text-black dark:filter dark:brightness-0 dark:invert">
                             {parse(
                               get(data, "data", [])[currentQuizIndex]
                                 ?.question_uz,
@@ -364,7 +367,7 @@ const Index = () => {
                             ) || ""}
                           </div>
                         ) : (
-                          <div className="!text-lg sm:!text-base font-semibold mt-[20px] dark:text-white text-black">
+                          <div className="!text-lg sm:!text-base font-semibold mt-[20px] dark:text-white text-black dark:filter dark:brightness-0 dark:invert">
                             {parse(
                               get(data, "data", [])[currentQuizIndex]
                                 ?.question_ru,
@@ -372,6 +375,7 @@ const Index = () => {
                             ) || ""}
                           </div>
                         )}
+
                         {/* Quizzes */}
                         {i18n.language === "uz" ? (
                           <ul className="mt-[20px] space-y-[10px]">

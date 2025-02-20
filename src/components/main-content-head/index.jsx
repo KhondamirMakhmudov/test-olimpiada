@@ -167,7 +167,7 @@ const MainContentHead = ({ toggleSidebar }) => {
                     width={18}
                     height={18}
                   />
-                  <p className="text-xs text-[#7C8FAC]">
+                  <p className="text-xs text-[#7C8FAC] dark:text-gray-200">
                     {get(studentProfile, "data.email")}
                   </p>
                 </div>
@@ -192,7 +192,9 @@ const MainContentHead = ({ toggleSidebar }) => {
                 <p className="text-black dark:text-white font-semibold">
                   {t("myPage")}
                 </p>
-                <p className="text-[#7C8FAC] text-sm">{t("settings")}</p>
+                <p className="text-[#7C8FAC] dark:text-gray-200 text-sm">
+                  {t("settings")}
+                </p>
               </div>
             </button>
 

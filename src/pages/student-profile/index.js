@@ -47,7 +47,7 @@ const Index = () => {
           </p>
 
           <div className="flex gap-x-[12px] items-center">
-            <Link href={"/"} className="text-[#5A6A85BF]">
+            <Link href={"/"} className="text-[#5A6A85BF] dark:text-gray-200">
               {t("homePage")}
             </Link>
             <div className="bg-black w-[6px] h-[6px] rounded-full  dark:bg-white"></div>
@@ -108,13 +108,13 @@ const Index = () => {
               <Image src="/icons/user.svg" alt="user" width={70} height={70} />
               <div className="space-y-1 text-black dark:text-white">
                 <h4>{get(studentProfile, "data.full_name")}</h4>
-                <p className="text-sm text-[#7C8FAC]">
-                  {t("educationalInstitution")}
+                <p className="text-sm text-[#7C8FAC] dark:text-gray-200">
+                  {t("educationalInstitution")}{" "}
                   <span className="capitalize">
                     {get(studentProfile, "data.academy_or_school")}
                   </span>
                 </p>
-                <p className="text-sm text-[#7C8FAC]">
+                <p className="text-sm text-[#7C8FAC] dark:text-gray-200">
                   {get(studentProfile, "data.class_name")}
                 </p>
               </div>
@@ -122,16 +122,22 @@ const Index = () => {
 
             <div className="flex flex-wrap justify-between gap-[30px] my-6 text-black dark:text-white">
               <div>
-                <p className="text-sm text-[#7C8FAC]">{t("phone number")}</p>
+                <p className="text-sm text-[#7C8FAC] dark:text-gray-200">
+                  {t("phone number")}
+                </p>
                 <p>+{get(studentProfile, "data.phone")}</p>
               </div>
 
               <div>
-                <p className="text-sm text-[#7C8FAC]">{t("email")}</p>
+                <p className="text-sm text-[#7C8FAC] dark:text-gray-200">
+                  {t("email")}
+                </p>
                 <p>{get(studentProfile, "data.email")}</p>
               </div>
               <div>
-                <p className="text-sm text-[#7C8FAC]">{t("birthday")}</p>
+                <p className="text-sm text-[#7C8FAC] dark:text-gray-200">
+                  {t("birthday")}
+                </p>
                 <p>
                   {dayjs(get(studentProfile, "data.brithday")).format(
                     "DD.MM.YYYY"
@@ -139,15 +145,21 @@ const Index = () => {
                 </p>
               </div>
               <div>
-                <p className="text-sm text-[#7C8FAC]">{t("region")}</p>
+                <p className="text-sm text-[#7C8FAC] dark:text-gray-200">
+                  {t("region")}
+                </p>
                 <p>{get(studentProfile, "data.region")}</p>
               </div>
               <div>
-                <p className="text-sm text-[#7C8FAC]">{t("district")}</p>
+                <p className="text-sm text-[#7C8FAC] dark:text-gray-200">
+                  {t("district")}
+                </p>
                 <p>{get(studentProfile, "data.districts")}</p>
               </div>
               <div className="col-span-full">
-                <p className="text-sm text-[#7C8FAC]">{t("address")}</p>
+                <p className="text-sm text-[#7C8FAC] dark:text-gray-200">
+                  {t("address")}
+                </p>
                 <p>{get(studentProfile, "data.address")}</p>
               </div>
             </div>
@@ -201,7 +213,7 @@ const Index = () => {
             </div>
 
             <div className="mt-10">
-              <p className="text-sm mb-2 text-[#7C8FAC]">
+              <p className="text-sm mb-2 text-[#7C8FAC] dark:text-gray-200">
                 {t("wantToChangePassword")}
               </p>
               <Link href="/auth/forget-password">

@@ -35,9 +35,13 @@ const Modal = () => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 p-4">
+      {/* Overlay with custom cursor */}
+      <div className="absolute inset-0 cursor-custom"></div>
+
+      {/* Modal (normal cursor inside) */}
       <div
         ref={modalRef}
-        className="bg-white p-5 rounded-lg relative text-center max-w-lg w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl"
+        className="bg-white p-5 rounded-lg relative text-center max-w-lg w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl cursor-auto z-10"
       >
         <button
           onClick={closeModal}

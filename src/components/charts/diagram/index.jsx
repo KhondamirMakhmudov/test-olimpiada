@@ -10,6 +10,7 @@ import {
   ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
+import { useTheme } from "next-themes"; // Import useTheme
 
 const data = [
   { name: "A", uv: 40, pv: 24, amt: 24 },
@@ -22,6 +23,18 @@ const data = [
 ];
 
 const DiagramChart = () => {
+  const { theme } = useTheme(); // Get the current theme
+
+  // Define colors based on the theme
+  const gridStroke = theme === "dark" ? "#4A5568" : "#E2E8F0"; // Dark: gray.600, Light: gray.200
+  const axisStroke = theme === "dark" ? "#CBD5E0" : "#718096"; // Dark: gray.400, Light: gray.600
+  const tooltipBg = theme === "dark" ? "#2D3748" : "#FFFFFF"; // Dark: gray.800, Light: white
+  const tooltipText = theme === "dark" ? "#FFFFFF" : "#000000"; // Dark: white, Light: black
+  const lineColors = {
+    pv: theme === "dark" ? "#805AD5" : "#8884d8", // Dark: purple.500, Light: default
+    uv: theme === "dark" ? "#38B2AC" : "#82ca9d", // Dark: teal.500, Light: default
+  };
+
   return (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
@@ -35,15 +48,32 @@ const DiagramChart = () => {
           bottom: 5,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
+        <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} />
+        <XAxis dataKey="name" stroke={axisStroke} />
+        <YAxis stroke={axisStroke} />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: tooltipBg,
+            border: "none",
+            borderRadius: "8px",
+            color: tooltipText,
+          }}
+        />
         <Legend />
         <ReferenceLine x="Page C" stroke="red" label="Max PV PAGE" />
         <ReferenceLine y={9800} label="Max" stroke="red" />
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+        <Line
+          type="monotone"
+          dataKey="pv"
+          stroke={lineColors.pv}
+          strokeWidth={2}
+        />
+        <Line
+          type="monotone"
+          dataKey="uv"
+          stroke={lineColors.uv}
+          strokeWidth={2}
+        />
       </LineChart>
     </ResponsiveContainer>
   );

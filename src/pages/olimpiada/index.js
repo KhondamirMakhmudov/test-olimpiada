@@ -38,7 +38,7 @@ const Index = () => {
           </p>
 
           <div className="flex gap-x-[12px] items-center z-30">
-            <Link href={"/"} className="text-[#5A6A85BF]">
+            <Link href={"/"} className="text-[#5A6A85BF] dark:text-gray-200">
               {t("homePage")}
             </Link>
             <div className="bg-black w-[6px] h-[6px] rounded-full  dark:bg-white"></div>
@@ -68,9 +68,11 @@ const Index = () => {
             {[
               "first_reminder",
               "second_reminder",
+              "third_reminder",
               "fourth_reminder",
               "fifth_reminder",
               "sixth_reminder",
+              "seventh_reminder",
             ].map((reminder, index) => (
               <li
                 key={index}
@@ -83,19 +85,46 @@ const Index = () => {
                   height={24}
                   className="w-6 h-6 sm:w-5 sm:h-5"
                 />
-                {reminder === "fifth_reminder" ? (
+
+                {reminder === "seventh_reminder" ? (
                   <div>
                     {i18n.language === "uz" ? (
                       <div className="text-sm text-[#5A6A85] dark:text-white ">
                         Ikkinchi bosqich haqida va boshqa qiziqtirgan
-                        savollaringizga bu havola orqali{" "}
+                        savollaringizga{" "}
                         <Link
                           href={"https://iq-math.uz/about-olympics"}
                           className="hover:underline text-[#5D87FF]"
                         >
                           'https://iq-math.uz/about-olympics'
                         </Link>{" "}
-                        javob olishingiz mumkin.
+                        havolasi orqali to‘liq ma’lumot olishingiz mumkin.
+                      </div>
+                    ) : (
+                      <div className="text-sm text-[#5A6A85] dark:text-white ">
+                        Более подробную информацию о втором этапе и ответы на
+                        интересующие вас вопросы можно найти по ссылке:
+                        <Link
+                          href={"https://iq-math.uz/about-olympics"}
+                          className="hover:underline text-[#5D87FF]"
+                        >
+                          'https://iq-math.uz/about-olympics'
+                        </Link>{" "}
+                      </div>
+                    )}
+                  </div>
+                ) : reminder === "second_reminder" ? (
+                  <div>
+                    {i18n.language === "uz" ? (
+                      <div className="text-sm text-[#5A6A85] dark:text-white ">
+                        Birinchi bosqich Olimpiadaning rasmiy{" "}
+                        <Link
+                          href={"https://iq-math.uz/about-olympics"}
+                          className="hover:underline text-[#5D87FF]"
+                        >
+                          'https://www.iq-math.uz/'
+                        </Link>{" "}
+                        veb-saytida o‘tkaziladi.
                       </div>
                     ) : (
                       <div className="text-sm text-[#5A6A85] dark:text-white ">
@@ -160,14 +189,16 @@ const Index = () => {
                         style={{ backgroundColor: color }}
                       ></div>
                       <div>
-                        <h3 className="text-[#868EAB] text-sm sm:text-xs">
+                        <h3 className="text-[#868EAB] dark:text-gray-200 text-sm sm:text-xs">
                           {t(label)}
                         </h3>
                         <div className="flex gap-x-[5px] items-center">
-                          <p className="font-semibold text-lg dark:text-white text-black text-sm md:text-base sm:text-sm">
+                          <p className="font-semibold text-lg dark:text-white text-black md:text-base sm:text-sm">
                             {value}
                           </p>
-                          <p className="font-semibold !text-sm  dark:text-white !text-gray-400 text-sm md:text-base sm:text-sm">
+                          <p
+                            className={`font-semibold !text-sm  dark:text-white !text-gray-300  md:text-base sm:text-sm`}
+                          >
                             {time}
                           </p>{" "}
                         </div>

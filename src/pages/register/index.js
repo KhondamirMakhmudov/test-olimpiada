@@ -20,6 +20,7 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import { get } from "lodash";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import dayjs from "dayjs";
 const Register = () => {
   const { t, i18n } = useTranslation();
   const [date, setDate] = useState("");
@@ -28,8 +29,6 @@ const Register = () => {
   const [selectedAcademicLyseums, setSelectedAcademicLyseums] = useState(null);
   const [openAcademicLyseums, setOpenAcademicLyseums] = useState(false);
   const [academic, setAcademic] = useState(false);
-  // const regions = regionsUz.regions;
-  // const districts = regionsUz.districts;
   const [selectedTypeOfEducation, setSelectedTypeOfEducation] = useState(null);
   const [openTypeOfEducation, setOpenTypeOfEducation] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -41,6 +40,7 @@ const Register = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showPage, setShowPage] = useState(false);
+  const [isExpired, setIsExpired] = useState(false);
   const [regions, setRegions] = useState(regionsUz.regions);
   const [districts, setDistricts] = useState(regionsUz.districts);
 
@@ -91,7 +91,10 @@ const Register = () => {
     const filterDistricts = districts.filter(
       (district) => district.region_id === regionId
     );
-    setFilteredDistricts(filterDistricts);
+    const sortedDistricts = filterDistricts.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+    setFilteredDistricts(sortedDistricts);
     setRegionDropdownOpen(false);
   };
   // hududni tanlash
@@ -119,9 +122,13 @@ const Register = () => {
   };
   useEffect(() => {
     if (i18n.language === "ru") {
-      setRegions(regionsRu.regions);
+      setRegions(
+        regionsRu.regions.sort((a, b) => a.name.localeCompare(b.name))
+      );
     } else {
-      setRegions(regionsUz.regions);
+      setRegions(
+        regionsUz.regions.sort((a, b) => a.name.localeCompare(b.name))
+      );
     }
   }, [i18n.language]);
 
@@ -168,7 +175,8 @@ const Register = () => {
     selectedDistrictName &&
     selectedTypeOfEducation &&
     selectedOption &&
-    selectedOptionCourse;
+    selectedOptionCourse &&
+    date;
 
   const onSubmit = ({
     full_name,
@@ -237,16 +245,34 @@ const Register = () => {
   });
 
   useEffect(() => {
+    if (!registerDate) return;
+
     const now = new Date();
     const startDate = new Date(get(registerDate, "data[0].start_date"));
     const endDate = new Date(get(registerDate, "data[0].end_date"));
 
-    if (now >= startDate && now <= endDate) {
-      setShowPage(true);
+    if (now < startDate) {
+      setShowPage(false); // Registration hasn't started yet
+      setIsExpired(false);
+    } else if (now >= startDate && now <= endDate) {
+      setShowPage(true); // Registration is active
+      setIsExpired(false);
     } else {
       setShowPage(false);
+      setIsExpired(true); // Registration expired
     }
   }, [registerDate]);
+
+  if (isLoadingRegisterDate || isFetchingRegisterDate) {
+    return (
+      <div
+        className="bg-no-repeat bg-center bg-cover min-h-screen flex flex-col"
+        style={{ backgroundImage: `url(/images/main-bg.jpg)` }}
+      >
+        <Header />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -370,7 +396,7 @@ const Register = () => {
                     onChange={(date) => setDate(date)}
                     dateFormat="dd.MM.yyyy"
                     placeholderText={`${t("birthday")}`}
-                    className="border p-2 rounded w-full"
+                    className="border p-2 rounded w-full !bg-white"
                     minDate={new Date(2004, 12, 1)}
                     maxDate={new Date(2010, 11, 31)}
                     showYearDropdown
@@ -702,10 +728,10 @@ const Register = () => {
                   )}
                 </div>
 
-                {selectedAcademicLyseums === null &&
-                watch("academy_or_school_name")?.trim() === "" ? (
-                  ""
-                ) : (
+                {(selectedOption === `${t("litsey")}` &&
+                  selectedAcademicLyseums) ||
+                (selectedOption === `${t("school")}` &&
+                  !!watch("academy_or_school_name")) ? (
                   <motion.div
                     initial={{ opacity: 0, translateY: "30px" }}
                     animate={{ opacity: 1, translateY: "0px" }}
@@ -752,7 +778,7 @@ const Register = () => {
                       </ul>
                     )}
                   </motion.div>
-                )}
+                ) : null}
 
                 {/* Ta'lim turi */}
 
@@ -813,8 +839,37 @@ const Register = () => {
                   {t("enter")}
                 </button>
               </form>
+            ) : isExpired ? (
+              <div className="text-center">
+                <h1 className="text-red-500">
+                  Ro&apos;yxatdan o&apos;tish yakunlangan!
+                </h1>
+              </div>
             ) : (
-              "Ro'yxatdan o'ta olmaysiz"
+              <div className="text-center space-y-[20px]">
+                <p className="text-center text-red-500">
+                  Ro&apos;yxatdan o&apos;ta olmaysiz!!!
+                </p>
+                <div className="flex text-gray-600 text-[15px]">
+                  <p>
+                    Siz{" "}
+                    <span className="font-semibold">
+                      {" "}
+                      {dayjs(get(registerDate, "data[0].start_date")).format(
+                        "DD.MM.YYYY"
+                      )}
+                    </span>{" "}
+                    dan{" "}
+                    <span className="font-semibold">
+                      {" "}
+                      {dayjs(get(registerDate, "data[0].end_date")).format(
+                        "DD.MM.YYYY"
+                      )}
+                    </span>{" "}
+                    gacha ro&apos;yxatdan o&apos;tishingiz mumkin
+                  </p>
+                </div>{" "}
+              </div>
             )}
           </div>
         </div>
