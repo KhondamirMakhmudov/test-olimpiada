@@ -82,6 +82,6 @@ export default NextAuth({
     "a1d808591edf4ecda7262ad750234b7c5d777f05f76dca55123dd50b1e65568c",
   pages: {
     signIn: "/",
-    signOut: "https://iq-math.uz",
+    signOut: "https://iq.iq-math.uz",
   },
 });

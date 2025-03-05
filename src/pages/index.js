@@ -55,7 +55,7 @@ const Home = () => {
 
   const handleLogout = async () => {
     await signOut({
-      callbackUrl: "https://iq-math.uz", // Redirect to iq-math.uz after sign out
+      callbackUrl: "/", // Redirect to iq-math.uz after sign out
     });
 
     localStorage.clear();
