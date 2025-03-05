@@ -74,7 +74,7 @@ export default NextAuth({
       return session;
     },
     async redirect({ url, baseUrl }) {
-      return "https://iq.iq-math.uz";
+      return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
   secret:
