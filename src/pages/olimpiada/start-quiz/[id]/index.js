@@ -352,7 +352,7 @@ const Index = () => {
               <div className="grid sm:grid-cols-1 md:grid-cols-12 gap-x-[20px] gap-y-[20px]">
                 {/* Quiz Section */}
                 <div className="sm:col-span-12 md:col-span-8 space-y-[20px] order-2 md:order-none">
-                  {get(data, "data", []).length > 0 && (
+                  {get(data, "data.questions", []).length > 0 && (
                     <div className="border p-[20px] sm:p-[15px] shadow-md rounded-[8px] bg-white border-[#EAEFF4] dark:bg-[#26334AFF] dark:border-[#2A3447FF]">
                       <div className="text-lg sm:text-base mb-[8px]">
                         <p className="mb-[15px] dark:text-white text-black">
@@ -361,7 +361,7 @@ const Index = () => {
                         {i18n.language === "uz" ? (
                           <div className="!text-lg sm:!text-base font-semibold mt-[20px] dark:text-white text-black dark:filter dark:brightness-0 dark:invert">
                             {parse(
-                              get(data, "data", [])[currentQuizIndex]
+                              get(data, "data.questions", [])[currentQuizIndex]
                                 ?.question_uz,
                               ""
                             ) || ""}
@@ -369,7 +369,7 @@ const Index = () => {
                         ) : (
                           <div className="!text-lg sm:!text-base font-semibold mt-[20px] dark:text-white text-black dark:filter dark:brightness-0 dark:invert">
                             {parse(
-                              get(data, "data", [])[currentQuizIndex]
+                              get(data, "data.questions", [])[currentQuizIndex]
                                 ?.question_ru,
                               ""
                             ) || ""}
@@ -510,10 +510,11 @@ const Index = () => {
 
                     {/* Quiz Number Buttons */}
                     <div className="flex-wrap flex gap-3">
-                      {get(data, "data", []).map((item, index) => (
-                        <div
-                          key={index}
-                          className={`w-8 h-8 flex items-center justify-center rounded-full border cursor-pointer text-sm font-medium
+                      {Array.isArray(get(data, "data.questions", [])) &&
+                        get(data, "data.questions", []).map((item, index) => (
+                          <div
+                            key={index}
+                            className={`w-8 h-8 flex items-center justify-center rounded-full border cursor-pointer text-sm font-medium
                               ${
                                 currentQuizIndex === index
                                   ? "bg-green-500 text-white border-green-500"
@@ -521,11 +522,11 @@ const Index = () => {
                                   ? "bg-blue-500 text-white border-blue-500"
                                   : "bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-300"
                               }`}
-                          onClick={() => setCurrentQuizIndex(index)}
-                        >
-                          {index + 1}
-                        </div>
-                      ))}
+                            onClick={() => setCurrentQuizIndex(index)}
+                          >
+                            {index + 1}
+                          </div>
+                        ))}
                     </div>
 
                     {/* Finish Button */}
