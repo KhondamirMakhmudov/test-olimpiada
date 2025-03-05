@@ -74,7 +74,7 @@ export default NextAuth({
       return session;
     },
     async redirect({ url, baseUrl }) {
-      return baseUrl; // Ensures redirection to NEXTAUTH_URL
+      return process.env.NEXT_PUBLIC_BASE_URL || baseUrl;
     },
   },
   secret:
@@ -82,6 +82,5 @@ export default NextAuth({
     "a1d808591edf4ecda7262ad750234b7c5d777f05f76dca55123dd50b1e65568c",
   pages: {
     signIn: "/",
-    signOut: "https://iq.iq-math.uz",
   },
 });
