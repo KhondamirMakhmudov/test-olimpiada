@@ -17,13 +17,15 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import ContentLoader from "@/components/loader/content-loader";
 const Index = () => {
+  const initialTimeLeft = 3600;
+  const [timeLeft, setTimeLeft] = useState(initialTimeLeft);
   const { t, i18n } = useTranslation();
   const { setResult } = useContext(UserProfileContext);
   const { data: session } = useSession();
   const { theme } = useTheme();
   const router = useRouter();
   const { id } = router.query;
-  const [timeLeft, setTimeLeft] = useState(3600);
+
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,6 +35,8 @@ const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [isExiting, setIsExiting] = useState(false);
+
+  const [remainingTime, setRemainingTime] = useState(null);
 
   const handleProfile = () => {
     setOpenProfile(!openProfile);
@@ -67,6 +71,26 @@ const Index = () => {
     },
     enabled: !!id && !!session?.accessToken,
   });
+
+  useEffect(() => {
+    if (get(data, "data.remaining_time")) {
+      setRemainingTime(get(data, "data.remaining_time"));
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!remainingTime) return;
+
+    const remainingTimestamp = new Date(remainingTime).getTime();
+    const currentTimestamp = Date.now();
+
+    const elapsedSeconds = Math.floor(
+      (currentTimestamp - remainingTimestamp) / 1000
+    );
+    const adjustedTimeLeft = Math.max(initialTimeLeft - elapsedSeconds, 0);
+
+    setTimeLeft(adjustedTimeLeft);
+  }, [remainingTime]);
 
   const errorMessage = error?.response?.data?.message;
 
@@ -209,14 +233,6 @@ const Index = () => {
   }, [timeLeft]);
 
   // Vaqtni "MM:SS" formatiga aylantirish
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(
-      2,
-      "0"
-    )}`;
-  };
 
   // LocalStorage'dan javoblarni o'qish
   useEffect(() => {
@@ -385,25 +401,27 @@ const Index = () => {
                                   key={index}
                                   className={`border cursor-pointer transform duration-200 p-[14px] sm:p-[10px] rounded-md text-black dark:text-white ${
                                     selectedAnswers[
-                                      get(data, "data", [])[currentQuizIndex]
-                                        ?.id
+                                      get(data, "data.questions", [])[
+                                        currentQuizIndex
+                                      ]?.id
                                     ] === option
                                       ? "bg-blue-500 text-white"
                                       : "bg-transparent border-[#EAEFF4] hover:bg-[#f3f4f6] dark:border-transparent dark:bg-[#232f42] dark:hover:bg-[#20335DFF]"
                                   }`}
                                   onClick={() =>
                                     handleAnswer(
-                                      get(data, "data", [])[currentQuizIndex]
-                                        ?.id,
+                                      get(data, "data.questions", [])[
+                                        currentQuizIndex
+                                      ]?.id,
                                       option
                                     )
                                   }
                                 >
                                   <div>
                                     {parse(
-                                      get(data, "data", [])[currentQuizIndex][
-                                        option
-                                      ],
+                                      get(data, "data.questions", [])[
+                                        currentQuizIndex
+                                      ][option],
                                       ""
                                     )}
                                   </div>
@@ -427,17 +445,18 @@ const Index = () => {
                                   }`}
                                   onClick={() =>
                                     handleAnswer(
-                                      get(data, "data", [])[currentQuizIndex]
-                                        ?.id,
+                                      get(data, "data.questions", [])[
+                                        currentQuizIndex
+                                      ]?.id,
                                       option
                                     )
                                   }
                                 >
                                   <div>
                                     {parse(
-                                      get(data, "data", [])[currentQuizIndex][
-                                        option
-                                      ],
+                                      get(data, "data.questions", [])[
+                                        currentQuizIndex
+                                      ][option],
                                       ""
                                     )}
                                   </div>
