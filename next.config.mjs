@@ -5,7 +5,7 @@ const nextConfig = {
     NEXTAUTH_URL: "https://iq.iq-math.uz/",
 
     NEXTAUTH_SECRET:
-      "a1d808591edf4ecda7262ad750234b7c5d777f05f76dca55123dd50b1e65568c",
+      "0bb43cd9f73216be2a5676af4f6b4de5efdcb40443e84b962c6b07267a108f7c",
   },
   // permanently
 
