@@ -24,8 +24,11 @@ const DashboardNav = () => {
 
   const handleLogout = async () => {
     await signOut({
-      callbackUrl: "/", // Redirect to iq-math.uz after sign out
+      callbackUrl: "https://iq.iq-math.uz", // Redirect to iq-math.uz after sign out
     });
+
+    localStorage.clear();
+    sessionStorage.clear();
   };
 
   // Function to handle showing the modal
