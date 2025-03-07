@@ -10,7 +10,7 @@ import PhoneIcon from "../icons/social-media/phone";
 
 const navLinks = [
   { href: "/about-us", label: "aboutus" },
-  { href: "https://iqmath.uz/", label: "courses" },
+  // { href: "https://iqmath.uz/", label: "courses" },
   { href: "/faq", label: "faq" },
   { href: "/about-olympics", label: "aboutOlympics" },
 ];

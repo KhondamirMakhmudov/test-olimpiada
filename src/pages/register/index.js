@@ -662,7 +662,7 @@ const Register = () => {
                 <div>
                   {selectedOption === `${t("school")}` ? (
                     <input
-                      type="number"
+                      type="text"
                       placeholder={`${t("schoolNumber")}`}
                       {...register("academy_or_school_name", {
                         required: true,
@@ -830,6 +830,7 @@ const Register = () => {
                 <UserAgreement />
 
                 <button
+                  disabled={!isFormValid}
                   className={` ${
                     isFormValid
                       ? "bg-[#5D87FF] hover:bg-[#4570EA] text-white"

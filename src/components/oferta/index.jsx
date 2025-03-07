@@ -1,5 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import useGetQuery from "@/hooks/api/useGetQuery";
+import { KEYS } from "@/constants/key";
+import { URLS } from "@/constants/url";
+import { get } from "lodash";
 
 export default function UserAgreement() {
   const { t, i18n } = useTranslation();
@@ -8,9 +12,12 @@ export default function UserAgreement() {
   const [isScrolledToEnd, setIsScrolledToEnd] = useState(false);
   const iframeRef = useRef(null);
 
+  // Qurilma turini aniqlash (mobil yoki desktop)
+  const isMobile = window.innerWidth <= 768;
+
   useEffect(() => {
     const iframe = iframeRef.current;
-    if (iframe) {
+    if (iframe && !isMobile) {
       iframe.onload = () => {
         const iframeDocument =
           iframe.contentDocument || iframe.contentWindow.document;
@@ -23,12 +30,27 @@ export default function UserAgreement() {
         };
       };
     }
-  }, []);
+  }, [isMobile]);
+
+  const {
+    data: ofertas,
+    isLoading,
+    isFetching,
+  } = useGetQuery({
+    key: KEYS.ofertas,
+    url: URLS.ofertas,
+  });
 
   const handleAgree = () => {
     setIsChecked(true);
     setIsModalOpen(false);
   };
+
+  // PDF manzilini olish
+  const pdfUrl =
+    i18n.language === "uz"
+      ? get(ofertas, "data[0].pdf_uz")
+      : get(ofertas, "data[0].pdf_ru");
 
   return (
     <div className="flex items-center space-x-2">
@@ -50,25 +72,20 @@ export default function UserAgreement() {
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center w-full justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg max-w-2xl shadow-lg w-[1200px]">
-            <h2 className="text-lg font-semibold mb-4">{t("contract")}</h2>
-
             {/* Scrollable PDF */}
             <div className="h-[500px] overflow-y-auto border relative">
-              {i18n.language === "uz" ? (
-                <iframe
-                  ref={iframeRef}
-                  src="/files/oferta_uz.pdf#toolbar=0&navpanes=0&scrollbar=0"
-                  type="application/pdf"
-                  className="w-full h-full"
-                />
-              ) : (
-                <iframe
-                  ref={iframeRef}
-                  src="/files/oferta_ru.pdf#toolbar=0&navpanes=0&scrollbar=0"
-                  type="application/pdf"
-                  className="w-full h-full"
-                />
-              )}
+              {/* <object
+                data={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&embedded=true`}
+                type="application/pdf"
+                className="w-full h-full"
+              ></object> */}
+
+              <embed
+                src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                type="application/pdf"
+                width="100%"
+                height="100%"
+              />
             </div>
 
             {/* Buttons */}

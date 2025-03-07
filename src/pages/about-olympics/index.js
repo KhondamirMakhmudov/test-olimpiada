@@ -5,14 +5,67 @@ import TitleLittleContent from "@/components/title/titleLittleContent";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import useGetQuery from "@/hooks/api/useGetQuery";
+import { KEYS } from "@/constants/key";
+import { URLS } from "@/constants/url";
+import ContentLoader from "@/components/loader/content-loader";
+import { get } from "lodash";
 
 const Index = () => {
   const { t, i18n } = useTranslation();
+  const {
+    data: documents,
+    isLoading,
+    isFetching,
+  } = useGetQuery({
+    key: KEYS.documents,
+    url: URLS.documents,
+  });
+
+  if (isLoading || isFetching) {
+    return (
+      <div className="h-screen">
+        <Header />
+        <div className="container">
+          <ContentLoader />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="h-screen">
       <Header />
 
-      {i18n.language === "uz" ? (
+      <div className="h-full mx-auto">
+        {get(documents, "data", []).map((document, index) => (
+          <div key={index} className="h-full  mx-auto">
+            {i18n.language === "uz" ? (
+              <div key={index} className="h-full  mx-auto">
+                <iframe
+                  src={`${get(
+                    document,
+                    "pdf_uz"
+                  )}#toolbar=0&navpanes=0&scrollbar=0`}
+                  type="application/pdf"
+                  className="w-full h-full bg-white"
+                />
+              </div>
+            ) : (
+              <iframe
+                src={`${get(
+                  document,
+                  "pdf_ru"
+                )}#toolbar=0&navpanes=0&scrollbar=0`}
+                type="application/pdf"
+                className="w-full h-full bg-white"
+              />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* {i18n.language === "uz" ? (
         <div className="h-full  mx-auto">
           <iframe
             src="/files/nizom_uz.pdf#toolbar=0&navpanes=0&scrollbar=0"
@@ -28,7 +81,7 @@ const Index = () => {
             className="w-full h-full bg-white"
           />
         </div>
-      )}
+      )} */}
       {/* <main>
         <section>
           <div className="container mt-[50px] ">
