@@ -71,3 +71,7 @@ body {
 .cursor-custom {
   cursor: url("/images/close-red.png") 9 9, auto;
 }
+
+.answers {
+  display: flex;
+}

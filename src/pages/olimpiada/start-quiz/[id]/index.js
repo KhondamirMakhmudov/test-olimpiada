@@ -192,6 +192,7 @@ const Index = () => {
           localStorage.removeItem("timeLeft");
           localStorage.removeItem("selectedAnswers");
           localStorage.removeItem("answeredQuestions");
+          localStorage.removeItem("quizQuestions");
         },
         onError: (error) => {
           setIsSubmitting(false);
@@ -475,7 +476,7 @@ const Index = () => {
                                     )
                                   }
                                 >
-                                  <div>
+                                  <div className="answers">
                                     {parse(
                                       get(data, "data.questions", [])[
                                         currentQuizIndex
