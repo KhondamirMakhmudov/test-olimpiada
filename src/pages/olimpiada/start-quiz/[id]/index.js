@@ -140,6 +140,8 @@ const Index = () => {
     }
   }, [data]);
 
+  console.log(selectedAnswers);
+
   const { mutate: submitAnswers } = usePostQuery({
     listKeyId: KEYS.submitAnswers,
   });
@@ -150,25 +152,19 @@ const Index = () => {
       return;
     }
 
-    const answers = Object.keys(selectedAnswers)
-      .filter((questionIndex) => {
-        const valid = questionIndex && !isNaN(parseInt(questionIndex));
-        if (!valid)
-          console.warn(
-            "Removing Invalid Answer:",
-            questionIndex,
-            selectedAnswers[questionIndex]
-          );
-        return valid;
+    // `questions` tartibida `selectedAnswers`dan javoblarni olish
+    const answers = questions
+      .map(({ id }) => {
+        if (selectedAnswers[id]) {
+          const cleanedAnswer = selectedAnswers[id].split("_")[0];
+          return {
+            quiz_id: id,
+            answer: cleanedAnswer,
+          };
+        }
+        return null;
       })
-      .map((questionIndex) => {
-        const cleanedAnswer = selectedAnswers[questionIndex].split("_")[0];
-
-        return {
-          quiz_id: parseInt(questionIndex, 10),
-          answer: cleanedAnswer,
-        };
-      });
+      .filter(Boolean); // `null` qiymatlarni olib tashlaydi
 
     const payload = {
       answers,
@@ -200,8 +196,6 @@ const Index = () => {
         onError: (error) => {
           setIsSubmitting(false);
           console.error("Error submitting answers:", error);
-
-          // Log the full error response from the server
           if (error.response) {
             console.error("Server error response:", error.response.data);
           }
