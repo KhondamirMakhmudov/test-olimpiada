@@ -17,7 +17,7 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import ContentLoader from "@/components/loader/content-loader";
 const Index = () => {
-  const initialTimeLeft = 3599;
+  const initialTimeLeft = 60;
   const [timeLeft, setTimeLeft] = useState(initialTimeLeft);
   const { t, i18n } = useTranslation();
   const { setResult } = useContext(UserProfileContext);
@@ -192,6 +192,20 @@ const Index = () => {
       }
     );
   };
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      onSubmit(); // Vaqt tugaganda avtomatik submit
+    }
+  }, [timeLeft]); // `timeLeft` o'zgarganda useEffect ishga tushadi
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0)); // 1 sekundga kamaytirish
+    }, 1000);
+
+    return () => clearInterval(timer); // Komponent unmount bo'lganda tozalash
+  }, []);
 
   useEffect(() => {
     if (
