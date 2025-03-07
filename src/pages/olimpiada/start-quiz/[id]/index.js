@@ -150,16 +150,19 @@ const Index = () => {
       return;
     }
 
-    const answers = Object.entries(selectedAnswers)
-      .filter(([questionIndex, answer]) => {
+    const answers = Object.keys(selectedAnswers)
+      .filter((questionIndex) => {
         const valid = questionIndex && !isNaN(parseInt(questionIndex));
         if (!valid)
-          console.warn("Removing Invalid Answer:", questionIndex, answer);
+          console.warn(
+            "Removing Invalid Answer:",
+            questionIndex,
+            selectedAnswers[questionIndex]
+          );
         return valid;
       })
-      .map(([questionIndex, answer]) => {
-        // "A_uz" yoki "B_ru" formatdagi javoblarni faqat "A", "B", "C", "D" qilib olish
-        const cleanedAnswer = answer.split("_")[0];
+      .map((questionIndex) => {
+        const cleanedAnswer = selectedAnswers[questionIndex].split("_")[0];
 
         return {
           quiz_id: parseInt(questionIndex, 10),
@@ -209,16 +212,16 @@ const Index = () => {
 
   useEffect(() => {
     if (timeLeft === 0) {
-      onSubmit(); // Vaqt tugaganda avtomatik submit
+      onSubmit();
     }
-  }, [timeLeft]); // `timeLeft` o'zgarganda useEffect ishga tushadi
+  }, [timeLeft]);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0)); // 1 sekundga kamaytirish
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
 
-    return () => clearInterval(timer); // Komponent unmount bo'lganda tozalash
+    return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
@@ -233,7 +236,7 @@ const Index = () => {
     if (typeof window !== "undefined") {
       const savedTime = localStorage.getItem("timeLeft");
       if (savedTime) {
-        setTimeLeft(parseInt(savedTime, 10)); // Brauzerdan qiymatni o'qib, holatni yangilash
+        setTimeLeft(parseInt(savedTime, 10));
       }
     }
   }, []);
@@ -245,7 +248,7 @@ const Index = () => {
       setTimeLeft((prev) => {
         const updatedTime = prev - 1;
         if (typeof window !== "undefined") {
-          localStorage.setItem("timeLeft", updatedTime); // Vaqtni localStorage'ga saqlash
+          localStorage.setItem("timeLeft", updatedTime);
         }
         return updatedTime;
       });
@@ -265,9 +268,6 @@ const Index = () => {
     return () => window.removeEventListener("beforeunload", handleUnload);
   }, [timeLeft]);
 
-  // Vaqtni "MM:SS" formatiga aylantirish
-
-  // LocalStorage'dan javoblarni o'qish
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedAnswers = localStorage.getItem("selectedAnswers");
@@ -281,7 +281,6 @@ const Index = () => {
     }
   }, []);
 
-  // Javob tanlanganda, uni localStorage'da saqlash
   const handleAnswer = (questionIndex, answer) => {
     if (
       !questionIndex ||
