@@ -162,6 +162,33 @@ const Index = () => {
                 </p>
                 <p>{get(studentProfile, "data.address")}</p>
               </div>
+
+              <div>
+                <p className="text-sm text-[#7C8FAC] dark:text-gray-200">
+                  Hujjat turi
+                </p>
+                <p>{get(studentProfile, "data.document_type")}</p>
+              </div>
+
+              <div>
+                <p className="text-sm text-[#7C8FAC] dark:text-gray-200">
+                  Hujjat
+                </p>
+                <p>{get(studentProfile, "data.document")}</p>
+              </div>
+
+              <div>
+                <p className="text-sm text-[#7C8FAC] dark:text-gray-200">
+                  O&apos;quv dargohi nomi
+                </p>
+                <p>{get(studentProfile, "data.academy_or_school_name")}</p>
+              </div>
+              <div>
+                <p className="text-sm text-[#7C8FAC] dark:text-gray-200">
+                  Ta&apos;lim tili
+                </p>
+                <p>{get(studentProfile, "data.type_of_education")}</p>
+              </div>
             </div>
           </div>
         </div>
