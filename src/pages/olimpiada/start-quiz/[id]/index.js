@@ -17,7 +17,7 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import ContentLoader from "@/components/loader/content-loader";
 const Index = () => {
-  const initialTimeLeft = 60;
+  const initialTimeLeft = 3599;
   const [timeLeft, setTimeLeft] = useState(initialTimeLeft);
   const { t, i18n } = useTranslation();
   const { setResult } = useContext(UserProfileContext);
