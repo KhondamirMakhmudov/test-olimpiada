@@ -240,7 +240,11 @@ const Index = () => {
             ) : (
               <div className="lg:col-span-4 md:col-span-6 col-span-12 space-y-[10px]">
                 <p className="text-lg font-medium text-gray-600">
-                  {scores5_1[0]["score"]} ballik
+                  <p className="text-lg font-medium text-gray-600">
+                    {scores5_1?.[0]?.score
+                      ? `${scores5_1[0].score} ballik`
+                      : ""}
+                  </p>
                 </p>
                 {scores5_1.map((item, index) => (
                   <div

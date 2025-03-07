@@ -17,7 +17,7 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import ContentLoader from "@/components/loader/content-loader";
 const Index = () => {
-  const initialTimeLeft = 3600;
+  const initialTimeLeft = 3599;
   const [timeLeft, setTimeLeft] = useState(initialTimeLeft);
   const { t, i18n } = useTranslation();
   const { setResult } = useContext(UserProfileContext);
@@ -94,7 +94,7 @@ const Index = () => {
 
   const errorMessage = error?.response?.data?.message;
 
-  const totalQuizzes = get(data, "data", []).length;
+  const totalQuizzes = get(data, "data.questions", []).length;
 
   const handleNext = () => {
     setCurrentQuizIndex((prevIndex) =>
@@ -144,10 +144,15 @@ const Index = () => {
           console.warn("Removing Invalid Answer:", questionIndex, answer);
         return valid;
       })
-      .map(([questionIndex, answer]) => ({
-        quiz_id: parseInt(questionIndex, 10),
-        answer,
-      }));
+      .map(([questionIndex, answer]) => {
+        // "A_uz" yoki "B_ru" formatdagi javoblarni faqat "A", "B", "C", "D" qilib olish
+        const cleanedAnswer = answer.split("_")[0];
+
+        return {
+          quiz_id: parseInt(questionIndex, 10),
+          answer: cleanedAnswer,
+        };
+      });
 
     const payload = {
       answers,
